@@ -84,37 +84,32 @@ GenreInfo genreInfoFor(String name) {
   }
 }
 
-/// Real artist photos (Wikipedia/Wikimedia Commons — free license) or
-/// Uttarakhand-themed Unsplash photos where artist photo is unavailable.
+/// Real artist portrait photos (Wikipedia / Wikimedia Commons, free license).
 const Map<String, String> kArtistImages = {
-  // Wikipedia photos — real portraits
   'Narendra Singh Negi':
       'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Image_of_Narendra_Singh_Negi.jpeg/400px-Image_of_Narendra_Singh_Negi.jpeg',
   'Pritam Bhartwan':
       'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/PRITAM_BHARTWAN.jpg/400px-PRITAM_BHARTWAN.jpg',
   'Meena Rana':
       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Meena_Rana.jpg/400px-Meena_Rana.jpg',
-
-  // Uttarakhand-themed Unsplash photos for artists without Wikipedia portraits
-  'Akanksha Ramola':
-      'https://images.unsplash.com/photo-1601821139990-9fc929db79ce?w=400&q=80',
-  'Amit Saagar':
-      'https://images.unsplash.com/photo-1650342518618-fdeaae0ef4f0?w=400&q=80',
-  'Hema Negi Karasi':
-      'https://images.unsplash.com/photo-1547378809-db8f9515a63b?w=400&q=80',
-  'Gopal Babu Goswami':
-      'https://images.unsplash.com/photo-1612438214708-f428a707dd4e?w=400&q=80',
-  'Kishan Mahipal':
-      'https://images.unsplash.com/photo-1585773668502-bf18672c14ac?w=400&q=80',
-  'Basanti Bisht':
-      'https://images.unsplash.com/photo-1547453155-ae5be9428a4f?w=400&q=80',
-  'Jeet Singh Negi':
-      'https://images.unsplash.com/photo-1709623868300-e3b78cad10e1?w=400&q=80',
 };
 
-/// Returns the best image URL for a song — artist photo first, then song.imageUrl.
-String songImageUrl(String artist, String fallback) =>
-    kArtistImages[artist] ?? fallback;
+/// Genre-themed Unsplash images — each genre shows a distinct Uttarakhand photo.
+const Map<String, String> kGenreImages = {
+  'Folk':       'https://images.unsplash.com/photo-1601821139990-9fc929db79ce?w=400&q=80',
+  'Devotional': 'https://images.unsplash.com/photo-1585773668502-bf18672c14ac?w=400&q=80',
+  'Wedding':    'https://images.unsplash.com/photo-1547453155-ae5be9428a4f?w=400&q=80',
+  'Festival':   'https://images.unsplash.com/photo-1650342518618-fdeaae0ef4f0?w=400&q=80',
+  'Dance':      'https://images.unsplash.com/photo-1612438214708-f428a707dd4e?w=400&q=80',
+  'Romantic':   'https://images.unsplash.com/photo-1547378809-db8f9515a63b?w=400&q=80',
+};
+
+/// Returns the best image for a song:
+/// 1. Real artist portrait (if available for 3 legend artists)
+/// 2. Genre-themed Uttarakhand photo (distinct per genre)
+/// 3. Fallback to song's stored imageUrl
+String songImageUrl(String artist, String genre, String fallback) =>
+    kArtistImages[artist] ?? kGenreImages[genre] ?? fallback;
 
 const List<String> kRegions = ['Garhwal', 'Kumaon', 'Jaunsari'];
 const List<String> kAllGenreNames = [

@@ -45,7 +45,7 @@ class MiniPlayer extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: CachedNetworkImage(
-                        imageUrl: songImageUrl(song.artist, song.imageUrl),
+                        imageUrl: songImageUrl(song.artist, song.genre, song.imageUrl),
                         width: 44,
                         height: 44,
                         fit: BoxFit.cover,

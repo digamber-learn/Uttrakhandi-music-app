@@ -63,7 +63,7 @@ class PlayerScreen extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: CachedNetworkImage(
-                    imageUrl: songImageUrl(song.artist, song.imageUrl),
+                    imageUrl: songImageUrl(song.artist, song.genre, song.imageUrl),
                     fit: BoxFit.cover,
                     placeholder: (_, __) => Container(
                       color: const Color(0xFF1B5E20),

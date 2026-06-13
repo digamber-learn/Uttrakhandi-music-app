@@ -22,7 +22,7 @@ class SongTile extends StatelessWidget {
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: CachedNetworkImage(
-          imageUrl: songImageUrl(song.artist, song.imageUrl),
+          imageUrl: songImageUrl(song.artist, song.genre, song.imageUrl),
           width: 52,
           height: 52,
           fit: BoxFit.cover,
