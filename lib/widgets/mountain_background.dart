@@ -1,57 +1,117 @@
 import 'dart:math' as math;
+import 'dart:async';
 import 'package:flutter/material.dart';
 
-/// Full-screen Himalayan background — real photo + painted star/moon overlay.
-class MountainBackground extends StatelessWidget {
+const List<String> _kBackgrounds = [
+  'assets/images/backgrounds/bg1.jpg',
+  'assets/images/backgrounds/bg2.jpg',
+  'assets/images/backgrounds/bg3.jpg',
+  'assets/images/backgrounds/bg4.jpg',
+  'assets/images/backgrounds/bg5.jpg',
+  'assets/images/backgrounds/bg6.jpg',
+  'assets/images/backgrounds/bg7.jpg',
+  'assets/images/backgrounds/bg8.jpg',
+  'assets/images/backgrounds/bg9.jpg',
+  'assets/images/backgrounds/bg10.jpg',
+];
+
+/// Full-screen Himalayan background — rotates through 10 HD photos with crossfade.
+class MountainBackground extends StatefulWidget {
   final bool showBottomFade;
   const MountainBackground({super.key, this.showBottomFade = true});
+
+  @override
+  State<MountainBackground> createState() => _MountainBackgroundState();
+}
+
+class _MountainBackgroundState extends State<MountainBackground>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _ctrl;
+  late Animation<double> _fade;
+  late List<String> _shuffled;
+  int _current = 0;
+  int _next = 1;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _shuffled = List.from(_kBackgrounds)..shuffle(math.Random());
+
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+    _fade = CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut);
+
+    // Change background every 6 seconds
+    _timer = Timer.periodic(const Duration(seconds: 6), (_) => _advance());
+  }
+
+  void _advance() {
+    if (!mounted) return;
+    setState(() => _next = (_current + 1) % _shuffled.length);
+    _ctrl.forward(from: 0).then((_) {
+      if (mounted) setState(() => _current = _next);
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _ctrl.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
       children: [
-        // Real Himalayan photo (downloaded from Unsplash, free license)
+        // Current photo
         Image.asset(
-          'assets/images/bg_mountains.jpg',
+          _shuffled[_current],
           fit: BoxFit.cover,
           alignment: Alignment.topCenter,
-          errorBuilder: (_, __, ___) => Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFF02071A), Color(0xFF0D1F0E)],
-              ),
-            ),
+          errorBuilder: (_, __, ___) => Container(color: const Color(0xFF02071A)),
+        ),
+
+        // Next photo crossfades in on top
+        FadeTransition(
+          opacity: _fade,
+          child: Image.asset(
+            _shuffled[_next],
+            fit: BoxFit.cover,
+            alignment: Alignment.topCenter,
+            errorBuilder: (_, __, ___) => const SizedBox.shrink(),
           ),
         ),
 
-        // Dark tint so app content is readable over the photo
+        // Dark overlay for readability
         Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color(0xAA020818), // heavy dark at top (sky area)
-                Color(0x55091528), // lighter mid
-                Color(0xCC0D1F0E), // dark at content area
-                Color(0xFF0D1F0E), // solid app bg at bottom
+                Color(0xAA020818),
+                Color(0x55091528),
+                Color(0xCC0D1F0E),
+                Color(0xFF0D1F0E),
               ],
               stops: [0.0, 0.30, 0.65, 1.0],
             ),
           ),
         ),
 
-        // Stars & moon painted on top for a magical night feel
+        // Stars & crescent moon overlay
         CustomPaint(
           painter: _StarsPainter(),
           child: const SizedBox.expand(),
         ),
 
-        // Bottom content fade
-        if (showBottomFade)
+        // Bottom fade into app background
+        if (widget.showBottomFade)
           Positioned(
             bottom: 0, left: 0, right: 0,
             child: Container(
@@ -79,7 +139,6 @@ class _StarsPainter extends CustomPainter {
     final h = size.height;
     final rng = math.Random(42);
 
-    // Stars — only in upper 40% (sky area)
     for (int i = 0; i < 70; i++) {
       final x = rng.nextDouble() * w;
       final y = rng.nextDouble() * h * 0.40;
@@ -91,16 +150,16 @@ class _StarsPainter extends CustomPainter {
       );
     }
 
-    // Crescent moon
     final cx = w * 0.84;
     final cy = h * 0.07;
     final r = w * 0.048;
 
     canvas.drawCircle(Offset(cx, cy), r * 1.8,
-        Paint()..color = const Color(0xFFFFF8D6).withOpacity(0.06)
+        Paint()
+          ..color = const Color(0xFFFFF8D6).withOpacity(0.06)
           ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8));
-    canvas.drawCircle(Offset(cx, cy), r,
-        Paint()..color = const Color(0xFFFFF8D6).withOpacity(0.85));
+    canvas.drawCircle(
+        Offset(cx, cy), r, Paint()..color = const Color(0xFFFFF8D6).withOpacity(0.85));
     canvas.drawCircle(Offset(cx + r * 0.38, cy - r * 0.08), r * 0.80,
         Paint()..color = const Color(0xFF020818).withOpacity(0.9));
   }
