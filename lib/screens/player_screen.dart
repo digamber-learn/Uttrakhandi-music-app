@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import '../providers/player_provider.dart';
+import '../models/genre_info.dart';
 
 class PlayerScreen extends StatelessWidget {
   const PlayerScreen({super.key});
@@ -62,7 +63,7 @@ class PlayerScreen extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: CachedNetworkImage(
-                    imageUrl: song.imageUrl,
+                    imageUrl: songImageUrl(song.artist, song.imageUrl),
                     fit: BoxFit.cover,
                     placeholder: (_, __) => Container(
                       color: const Color(0xFF1B5E20),

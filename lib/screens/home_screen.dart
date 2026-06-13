@@ -10,6 +10,7 @@ import 'genre_detail_screen.dart';
 import 'player_screen.dart';
 import 'all_songs_screen.dart';
 import 'admin/admin_login_screen.dart';
+import '../models/genre_info.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -135,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
                                   child: Image.network(
-                                    s.imageUrl,
+                                    songImageUrl(s.artist, s.imageUrl),
                                     width: 130,
                                     height: 120,
                                     fit: BoxFit.cover,

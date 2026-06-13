@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import '../models/song.dart';
+import '../models/genre_info.dart';
 import '../providers/player_provider.dart';
 
 class SongTile extends StatelessWidget {
@@ -21,7 +22,7 @@ class SongTile extends StatelessWidget {
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: CachedNetworkImage(
-          imageUrl: song.imageUrl,
+          imageUrl: songImageUrl(song.artist, song.imageUrl),
           width: 52,
           height: 52,
           fit: BoxFit.cover,

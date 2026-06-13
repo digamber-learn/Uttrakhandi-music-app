@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import '../providers/player_provider.dart';
+import '../models/genre_info.dart';
 import '../screens/player_screen.dart';
 
 class MiniPlayer extends StatelessWidget {
@@ -44,7 +45,7 @@ class MiniPlayer extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: CachedNetworkImage(
-                        imageUrl: song.imageUrl,
+                        imageUrl: songImageUrl(song.artist, song.imageUrl),
                         width: 44,
                         height: 44,
                         fit: BoxFit.cover,
