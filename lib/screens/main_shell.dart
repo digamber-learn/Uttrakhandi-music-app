@@ -39,30 +39,37 @@ class _MainShellState extends State<MainShell> {
             onDestinationSelected: (i) => setState(() => _index = i),
             destinations: const [
               NavigationDestination(
-                // Temples — Uttarakhand is "Devbhoomi" (Land of the Gods)
                 icon: Icon(Icons.temple_hindu_outlined, color: Colors.white54),
                 selectedIcon: Icon(Icons.temple_hindu, color: Color(0xFF81C784)),
                 label: 'Devbhoomi',
               ),
               NavigationDestination(
-                // Dhol-Damau drum — heart of Uttarakhand music
                 icon: Icon(Icons.album_outlined, color: Colors.white54),
                 selectedIcon: Icon(Icons.album, color: Color(0xFF81C784)),
                 label: 'Ragas',
               ),
               NavigationDestination(
-                // Kalakar — the singers / performers
                 icon: Icon(Icons.mic_none, color: Colors.white54),
                 selectedIcon: Icon(Icons.mic, color: Color(0xFF81C784)),
                 label: 'Kalakar',
               ),
               NavigationDestination(
-                // Compass — explore the mountains of music
                 icon: Icon(Icons.travel_explore, color: Colors.white54),
                 selectedIcon: Icon(Icons.travel_explore, color: Color(0xFF81C784)),
                 label: 'Khojo',
               ),
             ],
+          ),
+          // Copyright footer
+          Container(
+            width: double.infinity,
+            color: const Color(0xFF050C05),
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: const Text(
+              '©2026 Bot Intelligence LLC',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white24, fontSize: 11, letterSpacing: 0.5),
+            ),
           ),
         ],
       ),
