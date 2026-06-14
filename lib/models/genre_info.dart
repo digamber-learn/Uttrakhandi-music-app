@@ -84,14 +84,29 @@ GenreInfo genreInfoFor(String name) {
   }
 }
 
-/// Real artist portrait photos (Wikipedia / Wikimedia Commons, free license).
+/// Artist portrait photos — Wikipedia where available, themed Unsplash otherwise.
 const Map<String, String> kArtistImages = {
+  // Wikipedia portraits (real photos)
   'Narendra Singh Negi':
       'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Image_of_Narendra_Singh_Negi.jpeg/400px-Image_of_Narendra_Singh_Negi.jpeg',
   'Pritam Bhartwan':
       'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/PRITAM_BHARTWAN.jpg/400px-PRITAM_BHARTWAN.jpg',
   'Meena Rana':
       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Meena_Rana.jpg/400px-Meena_Rana.jpg',
+
+  // Themed Unsplash portraits for artists without Wikipedia photos
+  'Akanksha Ramola':
+      'https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?w=400&q=80',
+  'Amit Saagar':
+      'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80',
+  'Gopal Babu Goswami':
+      'https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=400&q=80',
+  'Hema Negi Karasi':
+      'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&q=80',
+  'Gajender Rana':
+      'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&q=80',
+  'Kalpana Chauhan':
+      'https://images.unsplash.com/photo-1485178575877-1a13bf489dfe?w=400&q=80',
 };
 
 /// Genre-themed Unsplash images — each genre shows a distinct Uttarakhand photo.

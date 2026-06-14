@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/songs_provider.dart';
+import '../models/genre_info.dart';
 import '../widgets/artist_card.dart';
 import 'artist_detail_screen.dart';
 
@@ -26,12 +27,17 @@ class ArtistsScreen extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
-          childAspectRatio: 0.9,
+          childAspectRatio: 0.78,
         ),
         itemBuilder: (context, i) {
           final artist = artists[i];
           final artistSongs = sp.songsForArtist(artist);
-          final imageUrl = artistSongs.isNotEmpty ? artistSongs.first.imageUrl : '';
+          final first = artistSongs.isNotEmpty ? artistSongs.first : null;
+          final imageUrl = songImageUrl(
+            artist,
+            first?.genre ?? 'Folk',
+            first?.imageUrl ?? '',
+          );
           return ArtistCard(
             artist: artist,
             songCount: artistSongs.length,
