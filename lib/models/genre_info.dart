@@ -100,9 +100,9 @@ const Map<String, String> kArtistImages = {
   'Amit Saagar':
       'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80',
   'Gopal Babu Goswami':
-      'https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=400&q=80',
+      'https://upload.wikimedia.org/wikipedia/hi/c/c7/Capture.PNG',
   'Hema Negi Karasi':
-      'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&q=80',
+      'https://upload.wikimedia.org/wikipedia/commons/8/8e/Hema_negi_karasi.jpg',
   'Gajender Rana':
       'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&q=80',
   'Kalpana Chauhan':
